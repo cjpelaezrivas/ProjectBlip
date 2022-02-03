@@ -1,6 +1,6 @@
-import { timeIntervals } from './time-intervals-1.0.0.js'
-import { sounds } from './sounds-1.0.0.js'
-import { VOLUME, TIME_INTERVAL, SOUND } from './Configurations-1.0.0.js'
+import { timeIntervals } from './time-intervals.js'
+import { sounds } from './sounds.js'
+import { VOLUME, TIME_INTERVAL, SOUND } from './configurations.js'
 
 let isPlaying = false;
 let intervalId;
