@@ -7,8 +7,8 @@ class Sound {
 };
 
 export const sounds = [
-    new Sound("Airplane", "../sounds/airplane.mp3"),
-    new Sound("Bell", "../sounds/bell.mp3"),
+    new Sound("Airplane", "/sounds/airplane.mp3"),
+    new Sound("Bell", "./sounds/bell.mp3"),
     new Sound("Bicycle bell", "../sounds/bicycle-bell.mp3"),
     new Sound("Cash", "../sounds/cash.mp3"),
     new Sound("Casio", "../sounds/casio.mp3"),
