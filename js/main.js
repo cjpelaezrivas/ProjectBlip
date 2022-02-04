@@ -74,7 +74,7 @@ function calculateNextAlarm() {
 }
 
 function checkNextAlarm() {
-    console.log("Checking next alarm...");
+    console.log("Check next alarm...");
 
     const now = new Date();
     if(nextAlarm - now <= 0) {
@@ -83,6 +83,8 @@ function checkNextAlarm() {
 }
 
 function executeNextAlarm() {
+    console.log(`Execute next alarm: Now: ${new Date()}`);
+
     if(isPlaying) {
         playSound();
     }
@@ -99,7 +101,7 @@ function playSound() {
     audio.volume = volume;
     audio.play();
     
-    console.log(`Paying sound. Sound: ${sound.file}`);
+    console.log(`Play sound. Sound: ${sound.file}`);
 }
 
 function startTimeInterval() {
