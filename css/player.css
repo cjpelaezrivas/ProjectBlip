@@ -1,0 +1,81 @@
+.player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  max-width: 500px;
+
+  font: var(--base-font);
+  font-size: 1em;
+}
+
+.button {
+  padding: 20px;
+  color: var(--base-color);
+  background: transparent;
+  cursor: pointer;
+}
+
+.button:active {
+  position: relative;
+  top: 2px;
+}
+
+.run {
+  width: 13em;
+  height: 13em;
+
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+
+  border-radius: 50%;
+  border: solid 0.3em var(--base-color);
+
+  opacity: 50%;
+  transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+}
+
+.run:hover {
+  opacity: 90%;
+}
+
+.run.running {
+  opacity: 75%;
+  background-color: var(--background-color);
+}
+
+.player-control {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.next-alarm-display {
+  text-align: center;
+}
+
+.range-slider {
+  --primary-color: var(--theme-color);
+}
+
+.range-slider > label {
+  position: relative;
+  top: -35px;
+}
+
+.range-slider input:hover {
+  --thumb-transform: scale(1.2);
+}
+
+.range-slider input:active {
+  --thumb-transform: scale(1);
+}
+
+.range-slider.grad {
+  /* --progress-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) inset;
+  --progress-flll-shadow: var(--progress-shadow); */
+  --fill-color: linear-gradient(to right, transparent, var(--theme-color));
+}

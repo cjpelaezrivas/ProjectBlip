@@ -1,0 +1,14 @@
+.hello {
+    animation-name: hello;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes hello {
+    0% {
+        box-shadow: 0 0 0 0 var(--base-color);
+    }
+    100% {
+        box-shadow: 0 0 0 50px transparent;
+    }
+}
