@@ -1,9 +1,9 @@
 class TimeInterval {
-    constructor ( delta, label ){
-      this.delta = delta;
-      this.label = label;
+    constructor(delta, label) {
+        this.delta = delta;
+        this.label = label;
     }
-};
+}
 
 export const timeIntervals = [
     new TimeInterval(1, "1 min"),

@@ -4,6 +4,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
+  margin: 10px;
+  margin-top: 0;
+
   width: 100%;
   max-width: 500px;
 
@@ -13,8 +16,6 @@
 
 .button {
   padding: 20px;
-  color: var(--base-color);
-  background: transparent;
   cursor: pointer;
 }
 
@@ -34,6 +35,9 @@
   border-radius: 50%;
   border: solid 0.3em var(--base-color);
 
+  color: var(--base-color);
+  background: transparent;
+
   opacity: 50%;
   transition: opacity 0.5s ease-in-out;
   -webkit-transition: opacity 0.5s ease-in-out;
@@ -48,13 +52,27 @@
   background-color: var(--background-color);
 }
 
+.button.primary {
+  padding: 15px 20px;
+  font-size: 1em;
+
+  border: 2px solid var(--base-color);
+  border-radius: 12px;
+}
+
 .player-control {
   width: 100%;
   margin-top: 50px;
 }
 
+.player-control > label {
+  margin-left: 5px;
+}
+
 .next-alarm-display {
   text-align: center;
+  color: var(--base-color);
+  font-style: italic;
 }
 
 .range-slider {

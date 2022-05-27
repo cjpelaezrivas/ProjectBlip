@@ -1,0 +1,76 @@
+.material-select {
+  position: relative;
+}
+
+.material-select.focused {
+  color: var(--theme-color);
+}
+
+.material-select label.required::after {
+  content: "*";
+  width: 20px;
+}
+
+.material-select label.error {
+  color: #f02318;
+}
+
+.material-select.field .psuedo_select {
+  position: relative;
+  margin: 0 10px;
+  margin-top: 15px;
+  padding-top: 2px;
+  
+  color: var(--base-color);
+  cursor: pointer;
+  height: 25px;
+  
+  border-color: var(--base-color);
+  border-style: solid;
+  border-width: 0 0 2px 0;
+}
+
+.material-select.focused .psuedo_select {
+  border-color: var(--base-color);
+}
+
+.material-select .psuedo_select .selected {
+  position: absolute;
+  left: 1px;
+  top: 0;
+  
+  transition-property: opacity, transform;
+  will-change: transform;
+}
+
+.material-select .psuedo_select .options {
+  display: block;
+  margin-top: 28px;
+  padding-left: 0;
+  z-index: 2;
+  overflow: hidden;
+  
+  background: #fff;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  
+  overflow: auto;
+  max-height: 150px;
+
+  list-style: none;
+  opacity: 0;
+  transition-property: height, opacity;
+  pointer-events: none;
+}
+
+.material-select.focused .psuedo_select .options {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.material-select .psuedo_select .options .option {
+  padding: 12px 10px;
+}
+
+.material-select .psuedo_select .options .option:hover {
+  color: var(--theme-color);
+}

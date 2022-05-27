@@ -7,7 +7,7 @@ import * as configureStyles from "./utils/configure-styles.js";
 const MAX_VOLUME = 0.5;
 
 let isRunning = false;
-let intervalId;
+let timeoutId;
 
 let timeInterval;
 let sound;
@@ -24,7 +24,9 @@ function init() {
 
 function populateSoundSelect() {
   sounds.forEach((sound, index) => {
-    $("#S_sounds").append($("<option/>").val(index).text(sound.name));
+    $("#s_sounds .options").append(
+      `<li class="option" data-value="${index}">${sound.name}</li>`
+    );
   });
 }
 
@@ -39,7 +41,8 @@ function loadConfiguration() {
 
   let sound = localStorage.getValue(SOUND);
   setSound(sound, true);
-  $("#S_sounds").val(sound);
+  $("#s_sounds").attr("data-value", sound);
+  $("#s_sounds .selected").html(sounds[sound].name);
 }
 
 function saveConfiguration() {
@@ -65,64 +68,58 @@ function calculateNextAlarm() {
 
   nextAlarm = next;
 
-  console.log(`Calculate next alarm. New alarm: ${nextAlarm}`);
+  console.debug(`Calculate next alarm. New alarm: ${nextAlarm}`);
 
   if (isRunning) {
     displayNextAlarm();
   } else {
-      clearNextAlarm();
+    clearNextAlarm();
   }
 }
 
-function checkNextAlarm() {
-  console.log("Check next alarm...");
+function executeAlarm() {
+  console.debug(`Execute next alarm: Now: ${new Date()}`);
 
-  const now = new Date();
-  if (nextAlarm - now <= 0) {
-    executeNextAlarm();
-  }
-}
-
-function executeNextAlarm() {
-  console.log(`Execute next alarm: Now: ${new Date()}`);
-
-  if (isRunning) {
-    playSound();
-  }
+  playSound();
 
   calculateNextAlarm();
+  startTimeout();
 }
 
 function testAlarm() {
   playSound();
 }
 
-function playSound() {
-  const audio = new Audio(sound.file);
+function playSound(soundFile = sound.file) {
+  const audio = new Audio(soundFile);
   audio.volume = volume;
   audio.play();
 
-  console.log(`Play sound. Sound: ${sound.file}`);
+  console.debug(`Play sound. Sound: ${soundFile}`);
 }
 
-function startTimeInterval() {
-  calculateNextAlarm();
-  intervalId = setInterval(checkNextAlarm, 1000);
+function startTimeout() {
+  const now = new Date();
+  const timeout = nextAlarm.getTime() - now.getTime();
 
-  console.log(`Start interval. Interval ID: ${intervalId}`);
+  timeoutId = setTimeout(executeAlarm, timeout);
+
+  console.debug(`Start timeout. Timeout ID: ${timeoutId}`);
 }
 
-function stopTimeInterval() {
-  console.log(`Stop interval. Interval ID: ${intervalId}`);
+function stopTimeout() {
+  console.debug(`Stop timeout. Timeout ID: ${timeoutId}`);
 
-  clearInterval(intervalId);
-  intervalId = undefined;
-
-  clearNextAlarm();
+  clearTimeout(timeoutId);
+  timeoutId = undefined;
 }
 
 function displayNextAlarm() {
   $("#s_nextAlarm").html(formatDate(nextAlarm));
+}
+
+function clearNextAlarm() {
+  $("#s_nextAlarm").html("Click on the hourglass to set the next alarm.");
 }
 
 function formatDate(date) {
@@ -139,23 +136,21 @@ function formatDate(date) {
   return `Next alarm: ${today}, ${date.toLocaleDateString("es-ES", options)}`;
 }
 
-function clearNextAlarm() {
-  $("#s_nextAlarm").html("");
-}
-
 //
 
 function toggleRunStatus() {
   isRunning = !isRunning;
-  console.log(
-    "Toggle run status. New status: " + (isRunning ? "Running" : "Pause")
+  console.debug(
+    "Toggle run status. New status: " + (isRunning ? "Running" : "Stopped")
   );
 
   if (isRunning) {
     playSound();
-    startTimeInterval();
+    calculateNextAlarm();
+    startTimeout();
   } else {
-    stopTimeInterval();
+    stopTimeout();
+    clearNextAlarm();
   }
 
   configureStyles.toggleRunButton(isRunning);
@@ -163,7 +158,7 @@ function toggleRunStatus() {
 
 function setTimeInterval(index, isInitialization = false) {
   timeInterval = timeIntervals[index];
-  console.log(`Set time interval. New time interval: ${timeInterval.label}`);
+  console.debug(`Set time interval. New time interval: ${timeInterval.label}`);
 
   $("#r_timeInterval").parent().css("--value", index);
   $("#r_timeInterval")
@@ -171,45 +166,57 @@ function setTimeInterval(index, isInitialization = false) {
     .css("--text-value", JSON.stringify(timeInterval.label));
 
   if (!isInitialization) {
+    stopTimeout();
     calculateNextAlarm();
-    saveConfiguration();
+    startTimeout();
+
+    localStorage.setValue(TIME_INTERVAL, $("#r_timeInterval").val());
   }
 }
 
 function setVolume(percentage, isInitialization = false) {
   volume = (percentage * MAX_VOLUME) / 100;
 
-  console.log(`Set volume. New volume: ${percentage} %`);
+  console.debug(`Set volume. New volume: ${percentage} %`);
 
   $("#r_volume").parent().css("--value", percentage);
   $("#r_volume").parent().css("--text-value", JSON.stringify(percentage));
 
   if (!isInitialization) {
-    saveConfiguration();
+    localStorage.setValue(VOLUME, $("#r_volume").val());
   }
 }
 
 function setSound(index, isInitialization = false) {
   sound = sounds[index];
-  console.log(`Set sound. New sound: ${sound.name}`);
+  console.debug(`Set sound. New sound: ${sound.name}`);
 
   if (!isInitialization) {
+    stopTimeout();
     calculateNextAlarm();
-    saveConfiguration();
+    startTimeout();
+
+    localStorage.setValue(SOUND, $("#s_sounds").attr("data-value"));
   }
 }
 
 //
 
-console.log("Application starts");
-
-$("#S_sounds").change(() => setSound($("#S_sounds").val()));
-$("#B_test").click(() => testAlarm());
+console.debug("Application starts");
 
 $("#b_run").click(() => toggleRunStatus());
 $("#r_timeInterval").on("input", () =>
   setTimeInterval($("#r_timeInterval").val())
 );
 $("#r_volume").on("input", () => setVolume($("#r_volume").val()));
+
+new MutationObserver((mutations) => {
+  setSound($("#s_sounds").attr("data-value"));
+}).observe(document.getElementById("s_sounds"), {
+  attributes: true,
+  attributeFilter: ["data-value"],
+});
+
+$("#b_test").click(() => testAlarm());
 
 init();
