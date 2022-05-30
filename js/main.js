@@ -10,8 +10,8 @@ let isRunning = false;
 let timeoutId;
 
 let timeInterval;
-let sound;
 let volume;
+let sound;
 
 let nextAlarm;
 
@@ -20,6 +20,7 @@ let nextAlarm;
 function init() {
   populateSoundSelect();
   loadConfiguration();
+  clearNextAlarm();
 }
 
 function populateSoundSelect() {
@@ -31,13 +32,13 @@ function populateSoundSelect() {
 }
 
 function loadConfiguration() {
-  let volumne = localStorage.getValue(VOLUME);
-  setVolume(volumne, true);
-  $("#r_volume").val(volumne);
-
-  let timeInterval = localStorage.getValue(TIME_INTERVAL);
+  let timeInterval = localStorage.getValue(TIME_INTERVAL).toString();
   setTimeInterval(timeInterval, true);
   $("#r_timeInterval").val(timeInterval);
+  
+  let volume = localStorage.getValue(VOLUME).toString();
+  setVolume(volume, true);
+  $("#r_volume").val(volume);
 
   let sound = localStorage.getValue(SOUND);
   setSound(sound, true);
@@ -176,7 +177,6 @@ function setTimeInterval(index, isInitialization = false) {
 
 function setVolume(percentage, isInitialization = false) {
   volume = (percentage * MAX_VOLUME) / 100;
-
   console.debug(`Set volume. New volume: ${percentage} %`);
 
   $("#r_volume").parent().css("--value", percentage);
@@ -204,11 +204,15 @@ function setSound(index, isInitialization = false) {
 
 console.debug("Application starts");
 
+init();
+
 $("#b_run").click(() => toggleRunStatus());
 $("#r_timeInterval").on("input", () =>
   setTimeInterval($("#r_timeInterval").val())
 );
 $("#r_volume").on("input", () => setVolume($("#r_volume").val()));
+
+$("#b_test").click(() => testAlarm());
 
 new MutationObserver((mutations) => {
   setSound($("#s_sounds").attr("data-value"));
@@ -216,7 +220,3 @@ new MutationObserver((mutations) => {
   attributes: true,
   attributeFilter: ["data-value"],
 });
-
-$("#b_test").click(() => testAlarm());
-
-init();
