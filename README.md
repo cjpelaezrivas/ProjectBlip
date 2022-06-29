@@ -8,7 +8,7 @@ https://projectblip.tk
 
 ## Attributions
 
-None of the used sounds is mine. You can find a link to each of the sounds used in the list bellow.
+None of the used sounds are mine. You can find a link to each of the sounds used in the list bellow.
 
 + https://www.freesoundslibrary.com/airplane-ding-dong-sound-effect/
 + https://www.freesoundslibrary.com/ding-ding-noise/
