@@ -9,9 +9,6 @@
 
   width: 100%;
   max-width: 500px;
-
-  font: var(--base-font);
-  font-size: 1em;
 }
 
 .button {
@@ -33,9 +30,9 @@
   transform: translate(-50%);
 
   border-radius: 50%;
-  border: solid 0.3em var(--base-color);
+  border: solid 0.3em var(--border-color);
 
-  color: var(--base-color);
+  color: var(--border-color);
   background: transparent;
 
   opacity: 50%;
@@ -56,8 +53,15 @@
   padding: 15px 20px;
   font-size: 1em;
 
-  border: 1px solid var(--base-color);
+  color: var(--text-color);
+  background-color: var(--background-color);
+
+  border: none;
   border-radius: 12px;
+}
+
+.button.primary:hover {
+  background-color: var(--background-color);
 }
 
 .player-control {
@@ -71,7 +75,7 @@
 
 .next-alarm-display {
   text-align: center;
-  color: var(--base-color);
+  color: var(--border-color);
   font-style: italic;
 }
 

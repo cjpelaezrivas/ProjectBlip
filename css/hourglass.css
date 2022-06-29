@@ -133,7 +133,7 @@
     clip-path: var(--hourglass-sand-polygonB5);
     -webkit-clip-path: var(--hourglass-sand-polygon-5);
 
-    background-color: var(--base-color);
+    background-color: var(--border-color);
     background-size: 100% 3.6em;
 }
 

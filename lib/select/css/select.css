@@ -21,17 +21,17 @@
   margin-top: 15px;
   padding-top: 2px;
   
-  color: var(--base-color);
+  color: var(--text-color);
   cursor: pointer;
   height: 25px;
   
-  border-color: var(--base-color);
+  border-color: var(--border-color);
   border-style: solid;
   border-width: 0 0 1px 0;
 }
 
 .material-select.focused .psuedo_select {
-  border-color: var(--base-color);
+  border-color: var(--border-color);
 }
 
 .material-select .psuedo_select .selected {
@@ -50,7 +50,7 @@
   z-index: 2;
   overflow: hidden;
   
-  background: #fff;
+  background: var(--background-color);
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   
   overflow: auto;

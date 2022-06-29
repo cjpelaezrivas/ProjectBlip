@@ -6,7 +6,7 @@
 
 @keyframes hello {
     0% {
-        box-shadow: 0 0 0 0 var(--base-color);
+        box-shadow: 0 0 0 0 var(--border-color);
     }
     100% {
         box-shadow: 0 0 0 50px transparent;
