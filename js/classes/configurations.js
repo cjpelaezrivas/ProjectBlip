@@ -8,3 +8,4 @@ class Configuration {
 export const VOLUME = new Configuration("volume", 25);
 export const TIME_INTERVAL = new Configuration("time-interval", 4);
 export const SOUND = new Configuration("sound", 2);
+export const PLAY_TWICE = new Configuration("play-twice", false);

@@ -14,6 +14,7 @@
 .button {
   padding: 20px;
   cursor: pointer;
+  font-size: revert;
 }
 
 .button:active {
@@ -66,7 +67,7 @@
 
 .player-control {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .player-control > label {
@@ -85,7 +86,7 @@
 
 .range-slider > label {
   position: relative;
-  top: -35px;
+  top: -45px;
 }
 
 .range-slider input:hover {
@@ -100,4 +101,33 @@
   /* --progress-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2) inset;
   --progress-flll-shadow: var(--progress-shadow); */
   --fill-color: linear-gradient(to right, transparent, var(--theme-color));
+}
+
+.form-select {
+  border: none;
+
+  border-color: var(--border-color);
+  border-style: solid;
+  border-width: 0 0 1px 0;
+
+  border-radius: 0;
+}
+
+.form-check-input {
+  width: 2.5em !important;
+  height: 1.2em;
+
+  background-color: var(background-color);
+  border-color: var(--border-color);
+
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: var(--theme-color);
+  border-color: var(--theme-color);
+}
+
+.form-switch .form-check-input {
+  float: initial;
 }

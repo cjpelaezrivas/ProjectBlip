@@ -11,12 +11,12 @@
 
   <link rel="manifest" href="projectblip.webmanifest">
 
-  <link rel="stylesheet" type="text/css" href="lib/fontawesome/5.8.1/css/fontawesome-all.min.css" />
+  <link rel="stylesheet" href="lib/bootstrap/5.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/fontawesome/5.15.4/css/fontawesome.all.min.css" />
   <link rel="stylesheet" type="text/css" href="lib/ui-range/2.1.15/css/ui-range.min.css" />
-  <link rel="stylesheet" type="text/css" href="lib/select/css/select.css" />
 
   <script src="lib/jquery/3.5.1/js/jquery.min.js"></script>
-  <script src="lib/select/js/select.js"></script>
+  <script src="lib/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="css/main.css" />
   <link rel="stylesheet" type="text/css" href="css/header.css" />
@@ -49,23 +49,28 @@
         <div class='range-slider__progress'></div>
       </div>
 
-      <div class="player-control range-slider grad" style='--min:0; --max:100; --step:5; --suffix:"%";'>
+      <div class="player-control range-slider grad" style='margin-top:60px; --min:0; --max:100; --step:5; --suffix:"%";'>
         <label>Volume</label>
         <input type="range" id="r_volume" min="0" max="100" step="5">
         <output></output>
         <div class='range-slider__progress'></div>
       </div>
 
-      <div style="display:flex;margin-top:40px;">
-        <div class="player-control material-select field" id="s_sounds" data-value="" style="flex:1;margin-top:0;">
-          <label>Alarm sound</label>
-          <div class="psuedo_select">
-            <span class="selected"></span>
-            <ul class="options">
-            </ul>
-          </div>
+      <div class="player-control">
+        <label>Alarm sound</label>
+        <form class="d-flex">
+          <select class="form-select" id="s_sounds">
+          </select>
+          <button class="button primary" id="b_test" type="button" style="margin-left:10px;"><i
+               class="fas fa-volume-up"></i></button>
+        </form>
+      </div>
+
+      <div class="player-control">
+        <div class="form-check form-switch">
+          <input id="s_playTwice" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Play sound twice on o'clock alarms</label>
         </div>
-        <button class="button primary" id="b_test" type="button"><i class="fas fa-volume-up"></i></button>
       </div>
 
       <div class="footer"></div>

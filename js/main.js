@@ -1,6 +1,11 @@
 import { timeIntervals } from "./classes/time-intervals.js";
 import { sounds } from "./classes/sounds.js";
-import { VOLUME, TIME_INTERVAL, SOUND } from "./classes/configurations.js";
+import {
+    VOLUME,
+    TIME_INTERVAL,
+    SOUND,
+    PLAY_TWICE,
+} from "./classes/configurations.js";
 import * as localStorage from "./utils/local-storage.js";
 import * as configureStyles from "./utils/configure-styles.js";
 
@@ -12,192 +17,209 @@ let timeoutId;
 let timeInterval;
 let volume;
 let sound;
+let playTwiceOnOclock;
 
 let nextAlarm;
 
 //
 
 function init() {
-  populateSoundSelect();
-  loadConfiguration();
-  clearNextAlarm();
+    populateSoundSelect();
+    loadConfiguration();
+    clearNextAlarm();
 }
 
 function populateSoundSelect() {
-  sounds.forEach((sound, index) => {
-    $("#s_sounds .options").append(
-      `<li class="option" data-value="${index}">${sound.name}</li>`
-    );
-  });
+    sounds.forEach((sound, index) => {
+        $("#s_sounds").append(`<option value="${index}">${sound.name}</li>`);
+    });
 }
 
 function loadConfiguration() {
-  let timeInterval = localStorage.getValue(TIME_INTERVAL).toString();
-  setTimeInterval(timeInterval, true);
-  $("#r_timeInterval").val(timeInterval);
-  
-  let volume = localStorage.getValue(VOLUME).toString();
-  setVolume(volume, true);
-  $("#r_volume").val(volume);
+    let timeInterval = localStorage.getValue(TIME_INTERVAL).toString();
+    setTimeInterval(timeInterval, true);
+    $("#r_timeInterval").val(timeInterval);
 
-  let sound = localStorage.getValue(SOUND);
-  setSound(sound, true);
-  $("#s_sounds").attr("data-value", sound);
-  $("#s_sounds .selected").html(sounds[sound].name);
-}
+    let volume = localStorage.getValue(VOLUME).toString();
+    setVolume(volume, true);
+    $("#r_volume").val(volume);
 
-function saveConfiguration() {
-  localStorage.setValue(VOLUME, $("#r_volume").val());
-  localStorage.setValue(TIME_INTERVAL, $("#r_timeInterval").val());
-  localStorage.setValue(SOUND, $("#S_sounds").val());
+    let sound = localStorage.getValue(SOUND);
+    setSound(sound, true);
+    $("#s_sounds").val(sound);
+
+    let playTwice = (localStorage.getValue(PLAY_TWICE) === 'true');
+    setPlayTwiceOnOclock(playTwice, true);
+      $("#s_playTwice").prop("checked", playTwice);
 }
 
 //
 
 function calculateNextAlarm() {
-  const next = new Date();
-  next.setSeconds(next.getSeconds() + sound.offset);
+    const next = new Date();
+    next.setSeconds(next.getSeconds() + sound.offset);
 
-  const minutes =
-    next.getMinutes() +
-    (timeInterval.delta - (next.getMinutes() % timeInterval.delta));
-  const seconds = -1 * sound.offset;
+    const minutes =
+        next.getMinutes() +
+        (timeInterval.delta - (next.getMinutes() % timeInterval.delta));
+    const seconds = -1 * sound.offset;
 
-  next.setMinutes(minutes);
-  next.setSeconds(seconds);
-  next.setMilliseconds(0);
+    next.setMinutes(minutes);
+    next.setSeconds(seconds);
+    next.setMilliseconds(0);
 
-  nextAlarm = next;
+    nextAlarm = next;
 
-  console.debug(`Calculate next alarm. New alarm: ${nextAlarm}`);
+    console.debug(`Calculate next alarm. New alarm: ${nextAlarm}`);
 
-  if (isRunning) {
     displayNextAlarm();
-  } else {
-    clearNextAlarm();
-  }
 }
 
 function executeAlarm() {
-  console.debug(`Execute next alarm: Now: ${new Date()}`);
+    console.debug(`Execute next alarm: Now: ${new Date()}`);
 
-  playSound();
+    playSound();
+    repeatSoundIfOclock();
 
-  calculateNextAlarm();
-  startTimeout();
+    calculateNextAlarm();
+    startTimeout();
 }
 
 function testAlarm() {
-  playSound();
+    playSound();
+    repeatSoundIfOclock();
+}
+
+function repeatSoundIfOclock() {
+    console.log(playTwiceOnOclock);
+
+    if (playTwiceOnOclock && nextAlarm && nextAlarm.getMinutes() === 0) {
+        setTimeout(playSound, sound.repeatIn);
+    }
 }
 
 function playSound(soundFile = sound.file) {
-  const audio = new Audio(soundFile);
-  audio.volume = volume;
-  audio.play();
+    const audio = new Audio(soundFile);
+    audio.volume = volume;
+    audio.play();
 
-  console.debug(`Play sound. Sound: ${soundFile}`);
+    console.debug(`Play sound. Sound: ${soundFile}`);
 }
 
 function startTimeout() {
-  const now = new Date();
-  const timeout = nextAlarm.getTime() - now.getTime();
+    const now = new Date();
+    const timeout = nextAlarm.getTime() - now.getTime();
 
-  timeoutId = setTimeout(executeAlarm, timeout);
+    timeoutId = setTimeout(executeAlarm, timeout);
 
-  console.debug(`Start timeout. Timeout ID: ${timeoutId}`);
+    console.debug(`Start timeout. Timeout ID: ${timeoutId}`);
 }
 
 function stopTimeout() {
-  console.debug(`Stop timeout. Timeout ID: ${timeoutId}`);
+    console.debug(`Stop timeout. Timeout ID: ${timeoutId}`);
 
-  clearTimeout(timeoutId);
-  timeoutId = undefined;
+    clearTimeout(timeoutId);
+    timeoutId = undefined;
 }
 
 function displayNextAlarm() {
-  $("#s_nextAlarm").html(formatDate(nextAlarm));
+    $("#s_nextAlarm").html(formatDate(nextAlarm));
 }
 
 function clearNextAlarm() {
-  $("#s_nextAlarm").html("Click on the hourglass to set the next alarm.");
+    $("#s_nextAlarm").html("Click on the hourglass to set the next alarm.");
 }
 
 function formatDate(date) {
-  let options = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  };
+    let options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+    };
 
-  let today = date.getDate() === new Date().getDate() ? "Today" : "Tomorrow";
+    let today = date.getDate() === new Date().getDate() ? "Today" : "Tomorrow";
 
-  return `Next alarm: ${today}, ${date.toLocaleDateString("es-ES", options)}`;
+    return `Next alarm: ${today}, ${date.toLocaleDateString("es-ES", options)}`;
 }
 
 //
 
 function toggleRunStatus() {
-  isRunning = !isRunning;
-  console.debug(
-    "Toggle run status. New status: " + (isRunning ? "Running" : "Stopped")
-  );
+    isRunning = !isRunning;
+    console.debug(
+        "Toggle run status. New status: " + (isRunning ? "Running" : "Stopped")
+    );
 
-  if (isRunning) {
-    playSound();
-    calculateNextAlarm();
-    startTimeout();
-  } else {
-    stopTimeout();
-    clearNextAlarm();
-  }
+    if (isRunning) {
+        playSound();
+        calculateNextAlarm();
+        startTimeout();
+    } else {
+        stopTimeout();
+        clearNextAlarm();
+    }
 
-  configureStyles.toggleRunButton(isRunning);
+    configureStyles.toggleRunButton(isRunning);
 }
 
 function setTimeInterval(index, isInitialization = false) {
-  timeInterval = timeIntervals[index];
-  console.debug(`Set time interval. New time interval: ${timeInterval.label}`);
+    timeInterval = timeIntervals[index];
+    console.debug(
+        `Set time interval. New time interval: ${timeInterval.label}`
+    );
 
-  $("#r_timeInterval").parent().css("--value", index);
-  $("#r_timeInterval")
-    .parent()
-    .css("--text-value", JSON.stringify(timeInterval.label));
+    $("#r_timeInterval").parent().css("--value", index);
+    $("#r_timeInterval")
+        .parent()
+        .css("--text-value", JSON.stringify(timeInterval.label));
 
-  if (!isInitialization) {
-    stopTimeout();
-    calculateNextAlarm();
-    startTimeout();
+    if (!isInitialization) {
+        if (isRunning) {
+            stopTimeout();
+            calculateNextAlarm();
+            startTimeout();
+        }
 
-    localStorage.setValue(TIME_INTERVAL, $("#r_timeInterval").val());
-  }
+        localStorage.setValue(TIME_INTERVAL, index);
+    }
 }
 
 function setVolume(percentage, isInitialization = false) {
-  volume = (percentage * MAX_VOLUME) / 100;
-  console.debug(`Set volume. New volume: ${percentage} %`);
+    volume = (percentage * MAX_VOLUME) / 100;
+    console.debug(`Set volume. New volume: ${percentage} %`);
 
-  $("#r_volume").parent().css("--value", percentage);
-  $("#r_volume").parent().css("--text-value", JSON.stringify(percentage));
+    $("#r_volume").parent().css("--value", percentage);
+    $("#r_volume").parent().css("--text-value", JSON.stringify(percentage));
 
-  if (!isInitialization) {
-    localStorage.setValue(VOLUME, $("#r_volume").val());
-  }
+    if (!isInitialization) {
+        localStorage.setValue(VOLUME, percentage);
+    }
 }
 
 function setSound(index, isInitialization = false) {
-  sound = sounds[index];
-  console.debug(`Set sound. New sound: ${sound.name}`);
+    sound = sounds[index];
+    console.debug(`Set sound. New sound: ${sound.name}`);
 
-  if (!isInitialization) {
-    stopTimeout();
-    calculateNextAlarm();
-    startTimeout();
+    if (!isInitialization) {
+        if (isRunning) {
+            stopTimeout();
+            calculateNextAlarm();
+            startTimeout();
+        }
 
-    localStorage.setValue(SOUND, $("#s_sounds").attr("data-value"));
-  }
+        localStorage.setValue(SOUND, index);
+    }
+}
+
+function setPlayTwiceOnOclock(playTwice, isInitialization = false) {
+    playTwiceOnOclock = playTwice;
+    console.debug(`Set play twice on o'clock. New value: ${playTwice}`);
+
+    if (!isInitialization) {
+        localStorage.setValue(PLAY_TWICE, playTwice);
+    }
 }
 
 //
@@ -208,15 +230,11 @@ init();
 
 $("#b_run").click(() => toggleRunStatus());
 $("#r_timeInterval").on("input", () =>
-  setTimeInterval($("#r_timeInterval").val())
+    setTimeInterval($("#r_timeInterval").val())
 );
 $("#r_volume").on("input", () => setVolume($("#r_volume").val()));
-
+$("#s_sounds").on("change", () => setSound($("#s_sounds").val()));
 $("#b_test").click(() => testAlarm());
-
-new MutationObserver((mutations) => {
-  setSound($("#s_sounds").attr("data-value"));
-}).observe(document.getElementById("s_sounds"), {
-  attributes: true,
-  attributeFilter: ["data-value"],
-});
+$("#s_playTwice").on("change", () =>
+    setPlayTwiceOnOclock($("#s_playTwice").is(":checked"))
+);
