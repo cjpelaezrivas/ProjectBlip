@@ -91,8 +91,6 @@ function testAlarm() {
 }
 
 function repeatSoundIfOclock() {
-    console.log(playTwiceOnOclock);
-
     if (playTwiceOnOclock && nextAlarm && nextAlarm.getMinutes() === 0) {
         setTimeout(playSound, sound.repeatIn);
     }

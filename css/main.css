@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/open-sans-v15-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local('Open Sans Regular'), local('OpenSans-Regular'),
+         url('../fonts/open-sans-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/open-sans-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/open-sans-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/open-sans-v15-latin-regular.ttf') format('truetype'); /* Safari, Android, iOS */
+  }
+  
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/open-sans-v15-latin-600.eot'); /* IE9 Compat Modes */
+    src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+         url('../fonts/open-sans-v15-latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/open-sans-v15-latin-600.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/open-sans-v15-latin-600.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/open-sans-v15-latin-600.ttf') format('truetype'); /* Safari, Android, iOS */
+  }
+
 :root {
     --app-background-color: #fefefe;
 
@@ -6,7 +30,11 @@
     --background-color: #e5e5e5;
 
     --text-color: #111111;
-    --base-font: 500 12px/1.4 "Segoe UI";
+    
+    --base-font-family: "Open Sans", Helvetica;
+    --base-font-size: 1rem;
+    --base-font-weight: 600;
+    --base-line-height: 1.7;
 }
 
 html {
@@ -20,21 +48,27 @@ body {
     background-color: var(--app-background-color);
     color: var(--text-color);
 
-    font: var(--base-font);
-    font-size: 1em;
+    font-family: var(--base-font-family);
+    font-size: var(--base-font-size);
+    font-weight: var(--base-font-weight);
+    line-height: var(--base-line-height);
 }
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
     :root {
-        --app-background-color: #303030;
+        --app-background-color: #252525;
 
-        --theme-color: #255ff4;
-        --border-color: #e5e5e5;
-        --background-color: #6f6c67;
+        --theme-color: #ff9e07;
+        --border-color: #e8e8e8;
+        --background-color: #6a6a6a;
     
-        --text-color: #f5f5f5;
+        --text-color: #e0e0e0;
 
         /* https://www.ditdot.hr/en/dark-mode-website-tutorial */
+    }
+
+    .form-select {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>");
     }
 }

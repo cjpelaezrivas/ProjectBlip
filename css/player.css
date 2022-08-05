@@ -82,6 +82,10 @@
 
 .range-slider {
   --primary-color: var(--theme-color);
+  --progress-background: var(--background-color);
+  --thumb-color: var(--app-background-color);
+  --ticks-color: var(--border-color);
+  --value-offset-y: 15px;
 }
 
 .range-slider > label {
@@ -104,8 +108,10 @@
 }
 
 .form-select {
-  border: none;
+  background-color: var(--app-background-color);
+  color: var(--text-color);
 
+  border: none;
   border-color: var(--border-color);
   border-style: solid;
   border-width: 0 0 1px 0;
