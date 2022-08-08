@@ -1,7 +1,3 @@
-export function mostrar() {
-    console.log("Pasa...");
-}
-
 export function toggleRunButton(isRunning) {
     $("#b_run").removeClass("hello");
     $("#b_run").removeClass("running");

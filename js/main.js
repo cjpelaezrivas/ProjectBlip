@@ -1,12 +1,14 @@
-import { timeIntervals } from "./classes/time-intervals.js";
-import { sounds } from "./classes/sounds.js";
+import { TIME_INTERVALS } from "./classes/time-intervals.js";
+import { SOUNDS } from "./classes/sounds.js";
 import {
     VOLUME,
     TIME_INTERVAL,
     SOUND,
-    PLAY_TWICE,
+    PLAY_ALARM_TWICE,
+    TELL_HOUR_AFTER_ALARM,
 } from "./classes/configurations.js";
 import * as localStorage from "./utils/local-storage.js";
+import * as textToSpeech from "./utils/text-to-speech.js";
 import * as configureStyles from "./utils/configure-styles.js";
 
 const MAX_VOLUME = 0.5;
@@ -17,7 +19,9 @@ let timeoutId;
 let timeInterval;
 let volume;
 let sound;
-let playTwiceOnOclock;
+let playAlarmTwiceOnOclock;
+let tellHourAfterAlarm;
+let speechDelay;
 
 let nextAlarm;
 
@@ -30,7 +34,7 @@ function init() {
 }
 
 function populateSoundSelect() {
-    sounds.forEach((sound, index) => {
+    SOUNDS.forEach((sound, index) => {
         $("#s_sounds").append(`<option value="${index}">${sound.name}</li>`);
     });
 }
@@ -48,9 +52,13 @@ function loadConfiguration() {
     setSound(sound, true);
     $("#s_sounds").val(sound);
 
-    let playTwice = (localStorage.getValue(PLAY_TWICE) === 'true');
+    let playTwice = localStorage.getValue(PLAY_ALARM_TWICE) === "true";
     setPlayTwiceOnOclock(playTwice, true);
-      $("#s_playTwice").prop("checked", playTwice);
+    $("#s_playTwice").prop("checked", playTwice);
+
+    let tellHour = localStorage.getValue(TELL_HOUR_AFTER_ALARM) === "true";
+    setTellHourAfterAlarm(tellHour, true);
+    $("#s_tellHourAfterAlarm").prop("checked", tellHour);
 }
 
 //
@@ -80,30 +88,39 @@ function executeAlarm() {
 
     playSound();
     repeatSoundIfOclock();
+    hourToSpeech();
 
     calculateNextAlarm();
     startTimeout();
 }
 
 function testAlarm() {
-    playSound();
-    if (playTwiceOnOclock) {
-        setTimeout(playSound, sound.repeatIn);
-    }
-}
+    speechDelay = sound.repeatIn;
 
-function repeatSoundIfOclock() {
-    if (playTwiceOnOclock && nextAlarm && nextAlarm.getMinutes() === 0) {
-        setTimeout(playSound, sound.repeatIn);
-    }
+    playSound();
+    repeatSoundIfOclock(true);
+    alarmToSpeech();
 }
 
 function playSound(soundFile = sound.file) {
     const audio = new Audio(soundFile);
     audio.volume = volume;
     audio.play();
-
+    
     console.debug(`Play sound. Sound: ${soundFile}`);
+}
+
+function repeatSoundIfOclock(isTest = false) {
+    if (playAlarmTwiceOnOclock && (isTest || (nextAlarm && nextAlarm.getMinutes() === 0))) {
+        setTimeout(playSound, sound.repeatIn);
+        speechDelay = speechDelay * 2;
+    }
+}
+
+function alarmToSpeech() {
+    if(tellHourAfterAlarm) {
+        setTimeout(textToSpeech.alarmToSpeech, speechDelay, volume);
+    }
 }
 
 function startTimeout() {
@@ -165,7 +182,7 @@ function toggleRunStatus() {
 }
 
 function setTimeInterval(index, isInitialization = false) {
-    timeInterval = timeIntervals[index];
+    timeInterval = TIME_INTERVALS[index];
     console.debug(
         `Set time interval. New time interval: ${timeInterval.label}`
     );
@@ -199,7 +216,7 @@ function setVolume(percentage, isInitialization = false) {
 }
 
 function setSound(index, isInitialization = false) {
-    sound = sounds[index];
+    sound = SOUNDS[index];
     console.debug(`Set sound. New sound: ${sound.name}`);
 
     if (!isInitialization) {
@@ -214,11 +231,20 @@ function setSound(index, isInitialization = false) {
 }
 
 function setPlayTwiceOnOclock(playTwice, isInitialization = false) {
-    playTwiceOnOclock = playTwice;
+    playAlarmTwiceOnOclock = playTwice;
     console.debug(`Set play twice on o'clock. New value: ${playTwice}`);
 
     if (!isInitialization) {
-        localStorage.setValue(PLAY_TWICE, playTwice);
+        localStorage.setValue(PLAY_ALARM_TWICE, playTwice);
+    }
+}
+
+function setTellHourAfterAlarm(tellHour, isInitialization = false) {
+    tellHourAfterAlarm = tellHour;
+    console.debug(`Set tell hour after alarm. New value: ${tellHour}`);
+
+    if (!isInitialization) {
+        localStorage.setValue(TELL_HOUR_AFTER_ALARM, tellHour);
     }
 }
 
@@ -237,4 +263,7 @@ $("#s_sounds").on("change", () => setSound($("#s_sounds").val()));
 $("#b_test").click(() => testAlarm());
 $("#s_playTwice").on("change", () =>
     setPlayTwiceOnOclock($("#s_playTwice").is(":checked"))
+);
+$("#s_tellHourAfterAlarm").on("change", () =>
+    setTellHourAfterAlarm($("#s_tellHourAfterAlarm").is(":checked"))
 );

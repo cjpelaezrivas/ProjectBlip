@@ -5,7 +5,7 @@ class TimeInterval {
     }
 }
 
-export const timeIntervals = [
+export const TIME_INTERVALS = [
     new TimeInterval(1, "1 min"),
     new TimeInterval(2, "2 min"),
     new TimeInterval(5, "5 min"),

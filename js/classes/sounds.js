@@ -7,7 +7,7 @@ class Sound {
     }
 };
 
-export const sounds = [
+export const SOUNDS = [
     new Sound("Airplane", "./sounds/airplane.mp3", 1200),
     new Sound("Bell", "./sounds/bell.mp3", 1250),
     new Sound("Casio", "./sounds/casio.mp3", 900),
