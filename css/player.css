@@ -83,7 +83,6 @@
 .range-slider {
   --primary-color: var(--theme-color);
   --progress-background: var(--background-color);
-  --thumb-color: var(--app-background-color);
   --ticks-color: var(--border-color);
   --value-offset-y: 15px;
 }

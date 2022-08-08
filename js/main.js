@@ -87,7 +87,9 @@ function executeAlarm() {
 
 function testAlarm() {
     playSound();
-    repeatSoundIfOclock();
+    if (playTwiceOnOclock) {
+        setTimeout(playSound, sound.repeatIn);
+    }
 }
 
 function repeatSoundIfOclock() {
