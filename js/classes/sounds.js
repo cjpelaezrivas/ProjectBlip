@@ -17,5 +17,6 @@ export const SOUNDS = [
     new Sound("Sleigh bell", "./sounds/sleigh-bell.mp3", 500),
     new Sound("Soft gong", "./sounds/soft-gong.mp3", 1250),
     new Sound("Sonar", "./sounds/sonar.mp3", 1000),
-    new Sound("Toy train", "./sounds/toy-train.mp3", 1200)
+    new Sound("Toy train", "./sounds/toy-train.mp3", 1200),
+    new Sound("Silence", "./sounds/silence.mp3")
 ];

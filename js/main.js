@@ -88,7 +88,7 @@ function executeAlarm() {
 
     playSound();
     repeatSoundIfOclock();
-    hourToSpeech();
+    alarmToSpeech();
 
     calculateNextAlarm();
     startTimeout();

@@ -10,4 +10,4 @@ export const TIME_INTERVAL = new Configuration("time-interval", 4);
 export const SOUND = new Configuration("sound", 2);
 export const PLAY_ALARM_TWICE = new Configuration("play-alarm-twice", false);
 export const TELL_HOUR_AFTER_ALARM = new Configuration("tell-hour-after-alarm", false);
-export const SPEECH_LANGUAGE = new Configuration("speech-language", "en-EN");
+export const SPEECH_LANGUAGE = new Configuration("speech-language", "en-GB");

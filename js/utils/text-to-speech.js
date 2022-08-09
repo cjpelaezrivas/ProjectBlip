@@ -22,7 +22,7 @@ function createText(language) {
 
     let date = new Date();
     return `${SPEECH_TEXTS.get(language).prefix} ${date.toLocaleTimeString(
-        "en-EN",
+        "en-GB",
         options
     )}`;
 }
@@ -33,8 +33,16 @@ function textToSpeech(language, text, volume) {
     utter.text = text;
     utter.rate = SPEECH_CONFIGURATIONS.get(language).rate;
     utter.volume = volume * SPEECH_VOLUME_MULTIPLER;
+    // utter.voice = getVoice(language);
 
     window.speechSynthesis.speak(utter);
 
     console.debug(`Speech to text executed. Text: ${text}`);
+}
+
+function getVoice(language) {
+    let v = window.speechSynthesis.getVoices();
+    let filtered = v.filter(voice => voice.lang.toLowerCase() === language.toLowerCase());
+
+    return filtered[0];
 }
