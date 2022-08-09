@@ -22,7 +22,7 @@ function createText(language) {
 
     let date = new Date();
     return `${SPEECH_TEXTS.get(language).prefix} ${date.toLocaleTimeString(
-        "en-GB",
+        "en-US",
         options
     )}`;
 }
