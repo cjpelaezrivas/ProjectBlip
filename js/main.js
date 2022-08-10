@@ -31,6 +31,7 @@ function init() {
     populateSoundSelect();
     loadConfiguration();
     clearNextAlarm();
+    initializeSpeechSynthesis();
 }
 
 function populateSoundSelect() {
@@ -145,6 +146,12 @@ function displayNextAlarm() {
 
 function clearNextAlarm() {
     $("#s_nextAlarm").html("Click on the hourglass to set the next alarm.");
+}
+
+// This call is needed to activate the speech synthesis, so when making the real
+// calls to the service it loads correctly the voice list
+function initializeSpeechSynthesis() {
+    window.speechSynthesis.getVoices();
 }
 
 function formatDate(date) {

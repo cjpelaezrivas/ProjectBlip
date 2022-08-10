@@ -12,11 +12,17 @@ class SpeechText {
 }
 
 export const SPEECH_CONFIGURATIONS = new Map([
-    ["en-GB", new SpeechConfiguration("English", 0.8)],
-    ["es-ES", new SpeechConfiguration("Spanish", 0.8)],
+    ["en", new SpeechConfiguration("English", 0.8)],
+    ["es", new SpeechConfiguration("Español", 0.8)],
+    ["fr", new SpeechConfiguration("Français", 0.8)],
+    ["de", new SpeechConfiguration("Deutsch", 0.8)],
+    ["it", new SpeechConfiguration("Italiano", 0.9)]
 ]);
 
 export const SPEECH_TEXTS = new Map([
-    ["en-GB", new SpeechText("The time is:")],
-    ["es-ES", new SpeechText("Son las")]
+    ["en", new SpeechText("The time is:")],
+    ["es", new SpeechText("Son las")],
+    ["fr", new SpeechText("Il est")],
+    ["de", new SpeechText("Es ist")],
+    ["it", new SpeechText("Sono le")]
 ]);
