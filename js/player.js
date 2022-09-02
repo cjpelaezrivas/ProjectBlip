@@ -5,7 +5,7 @@ import {
     TIME_INTERVAL,
     SOUND,
     PLAY_ALARM_TWICE,
-    TELL_HOUR_AFTER_ALARM,
+    TELL_HOUR_AFTER_ALARM
 } from "./classes/configurations.js";
 import * as localStorage from "./utils/local-storage.js";
 import * as textToSpeech from "./utils/text-to-speech.js";

@@ -12,3 +12,4 @@ export const PLAY_ALARM_TWICE = new Configuration("play-alarm-twice", false);
 export const TELL_HOUR_AFTER_ALARM = new Configuration("convert-hour-to-speech", false);
 export const SPEECH_LANGUAGE = new Configuration("speech-language", "en");
 export const SPEECH_VOICE = new Configuration("speech-voice", "");
+export const DARK_MODE = new Configuration("dark-mode", "");

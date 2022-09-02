@@ -25,14 +25,20 @@
   <link rel="stylesheet" type="text/css" href="css/animations.css" />
   <link rel="stylesheet" type="text/css" href="css/hourglass.css" />
 
-  <script src="js/main.js" type="module"></script>
+  <script src="js/player.js" type="module"></script>
+  <script src="js/dark-mode.js" type="module"></script>
 </head>
 
 <body>
   <div class="content">
 
     <div class="player">
-      <div class="header"></div>
+      <div class="header row align-items-center">
+        <div class="col"></div>
+        <div class="col-auto">
+          <button type="button" id="darkModeToggle" class="button icon"><i class="fas fa-adjust"></i></button>
+        </div>
+      </div>
 
       <button id="b_run" class="button run hello" type="button">
         <div id="b_run_hourglass_icon" class="hourglass_icon"></div>
@@ -62,8 +68,8 @@
         <form class="d-flex">
           <select class="form-select" id="s_sounds">
           </select>
-          <button class="button primary" id="b_test" type="button" style="margin-left:10px;"><i
-               class="fas fa-volume-up"></i></button>
+          <button class="button primary" id="b_test" type="button" style="margin-left:10px;">
+            <i class="fas fa-volume-up"></i></button>
         </form>
       </div>
 
@@ -81,7 +87,13 @@
         </div>
       </div>
 
-      <div class="footer"></div>
+      <div class="footer row align-items-center justify-content-center">
+        <div class="col-auto">
+          <a class="button icon" style="font-size:2.8em;" href="https://github.com/cjpelaezrivas/Project-Blip">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Default Statcounter code for Project Blip https://projectblip.tk/ -->

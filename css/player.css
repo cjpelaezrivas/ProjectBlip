@@ -11,18 +11,7 @@
   max-width: 500px;
 }
 
-.button {
-  padding: 20px;
-  cursor: pointer;
-  font-size: revert;
-}
-
-.button:active {
-  position: relative;
-  top: 2px;
-}
-
-.run {
+.button.run {
   width: 13em;
   height: 13em;
 
@@ -41,27 +30,12 @@
   -webkit-transition: opacity 0.5s ease-in-out;
 }
 
-.run:hover {
+.button.run:hover { 
   opacity: 90%;
 }
 
-.run.running {
+.button.run.running {
   opacity: 75%;
-  background-color: var(--background-color);
-}
-
-.button.primary {
-  padding: 15px 20px;
-  font-size: 1em;
-
-  color: var(--text-color);
-  background-color: var(--background-color);
-
-  border: none;
-  border-radius: 12px;
-}
-
-.button.primary:hover {
   background-color: var(--background-color);
 }
 
@@ -116,23 +90,4 @@
   border-width: 0 0 1px 0;
 
   border-radius: 0;
-}
-
-.form-check-input {
-  width: 2.5em !important;
-  height: 1.2em;
-
-  background-color: var(background-color);
-  border-color: var(--border-color);
-
-  cursor: pointer;
-}
-
-.form-check-input:checked {
-  background-color: var(--theme-color);
-  border-color: var(--theme-color);
-}
-
-.form-switch .form-check-input {
-  float: initial;
 }

@@ -1,36 +1,40 @@
 @font-face {
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 400;
-    src: url('../fonts/open-sans-v15-latin-regular.eot'); /* IE9 Compat Modes */
-    src: local('Open Sans Regular'), local('OpenSans-Regular'),
-         url('../fonts/open-sans-v15-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../fonts/open-sans-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-         url('../fonts/open-sans-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
-         url('../fonts/open-sans-v15-latin-regular.ttf') format('truetype'); /* Safari, Android, iOS */
-  }
-  
-  @font-face {
-    font-family: 'Open Sans';
+    src: url("../fonts/open-sans-v15-latin-regular.eot");
+    src: local("Open Sans Regular"), local("OpenSans-Regular"),
+        url("../fonts/open-sans-v15-latin-regular.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/open-sans-v15-latin-regular.woff2") format("woff2"),
+        url("../fonts/open-sans-v15-latin-regular.woff") format("woff"),
+        url("../fonts/open-sans-v15-latin-regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 600;
-    src: url('../fonts/open-sans-v15-latin-600.eot'); /* IE9 Compat Modes */
-    src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
-         url('../fonts/open-sans-v15-latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../fonts/open-sans-v15-latin-600.woff2') format('woff2'), /* Super Modern Browsers */
-         url('../fonts/open-sans-v15-latin-600.woff') format('woff'), /* Modern Browsers */
-         url('../fonts/open-sans-v15-latin-600.ttf') format('truetype'); /* Safari, Android, iOS */
-  }
+    src: url("../fonts/open-sans-v15-latin-600.eot");
+    src: local("Open Sans SemiBold"), local("OpenSans-SemiBold"),
+        url("../fonts/open-sans-v15-latin-600.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/open-sans-v15-latin-600.woff2") format("woff2"),
+        url("../fonts/open-sans-v15-latin-600.woff") format("woff"),
+        url("../fonts/open-sans-v15-latin-600.ttf") format("truetype");
+}
 
 :root {
     --app-background-color: #fefefe;
 
-    --theme-color: #255ff4;
+    --theme-color: #3b5caf;
     --border-color: #6f6c67;
     --background-color: #e5e5e5;
 
     --text-color: #111111;
-    
+
+    --hourglass-color-glass: #00000033;
+
     --base-font-family: "Open Sans", Helvetica;
     --base-font-size: 1rem;
     --base-font-weight: 600;
@@ -54,21 +58,81 @@ body {
     line-height: var(--base-line-height);
 }
 
+.button {
+    padding: 20px;
+    cursor: pointer;
+    font-size: revert;
+}
+
+.button:active {
+    position: relative;
+    top: 2px;
+}
+
+.button.primary {
+    padding: 15px 20px;
+    font-size: 1em;
+
+    color: var(--text-color);
+    background-color: var(--background-color);
+
+    border: none;
+    border-radius: 12px;
+}
+
+.button.primary:hover {
+    filter: brightness(85%);
+}
+
+.button.icon {
+    padding: 10px;
+    font-size: 1em;
+
+    color: var(--border-color);
+    background-color: transparent;
+
+    border: none;
+    border-radius: 12px;
+}
+
+.button.icon:hover {
+    color: var(--text-color);
+}
+
+.form-check-input {
+    width: 2.5em !important;
+    height: 1.2em;
+
+    background-color: var(background-color);
+    border-color: var(--border-color);
+
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
+}
+
+.form-switch .form-check-input {
+    float: initial;
+}
+
 /* Dark mode */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --app-background-color: #252525;
+.dark-mode {
+    --app-background-color: #252525;
 
-        --theme-color: #ff9e07;
-        --border-color: #e8e8e8;
-        --background-color: #6a6a6a;
-    
-        --text-color: #e0e0e0;
+    --theme-color: #b75817;
+    --border-color: #e8e8e8;
+    --background-color: #6a6a6a;
 
-        /* https://www.ditdot.hr/en/dark-mode-website-tutorial */
-    }
+    --text-color: #e0e0e0;
 
-    .form-select {
-        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>");
-    }
+    --hourglass-color-glass: #ffffff33;
+
+    /* https://www.ditdot.hr/en/dark-mode-website-tutorial */
+}
+
+.dark-mode > .form-select {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>");
 }
