@@ -59,9 +59,8 @@ body {
 }
 
 .button {
-    padding: 20px;
     cursor: pointer;
-    font-size: revert;
+    color: var(--text-color);
 }
 
 .button:active {
@@ -121,18 +120,22 @@ body {
 /* Dark mode */
 .dark-mode {
     --app-background-color: #252525;
-
+    
     --theme-color: #b75817;
     --border-color: #e8e8e8;
     --background-color: #6a6a6a;
-
+    
     --text-color: #e0e0e0;
-
+    
     --hourglass-color-glass: #ffffff33;
 
     /* https://www.ditdot.hr/en/dark-mode-website-tutorial */
 }
 
-.dark-mode > .form-select {
+.dark-mode .modal {
+    --bs-modal-bg: #2a2929;
+}
+
+.dark-mode .form-select.sound-select {
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>");
 }

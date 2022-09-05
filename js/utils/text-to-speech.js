@@ -44,13 +44,7 @@ function textToSpeech(language, voice, text, volume) {
 function getVoiceByName(voice) {
     return window.speechSynthesis
         .getVoices()
-        .filter((v) => v.voiceURI === voice).at(0);
+        .filter((v) => v.voiceURI === voice)
+        .at(0);
 }
 
-export function getVoicesByLanguage(language) {
-    return window.speechSynthesis
-        .getVoices()
-        .filter((voice) =>
-            voice.lang.toLowerCase().startsWith(language.toLowerCase())
-        );
-}

@@ -36,7 +36,7 @@ function init() {
 
 function populateSoundSelect() {
     SOUNDS.forEach((sound, index) => {
-        $("#s_sounds").append(`<option value="${index}">${sound.name}</li>`);
+        $("#s_sounds").append(`<option value="${index}">${sound.name}</option>`);
     });
 }
 

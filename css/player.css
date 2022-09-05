@@ -24,6 +24,7 @@
 
   color: var(--border-color);
   background: transparent;
+  font-size: revert;
 
   opacity: 50%;
   transition: opacity 0.5s ease-in-out;
@@ -80,7 +81,7 @@
   --fill-color: linear-gradient(to right, transparent, var(--theme-color));
 }
 
-.form-select {
+.form-select.sound-select {
   background-color: var(--app-background-color);
   color: var(--text-color);
 

@@ -25,7 +25,11 @@ function setDarkMode(newValue, isUserInteraction = false) {
     }
 }
 
-$("#darkModeToggle").click(() => {
+//
+
+init();
+
+$("#b_darkMode").click(() => {
     toggleDarkMode(true);
 });
 
@@ -37,4 +41,3 @@ window.matchMedia(PREFERS_COLOR_SCHEME).addEventListener("change", (e) => {
     }
 });
 
-init();

@@ -27,6 +27,7 @@
 
   <script src="js/player.js" type="module"></script>
   <script src="js/dark-mode.js" type="module"></script>
+  <script src="js/configuration.js" type="module"></script>
 </head>
 
 <body>
@@ -36,7 +37,9 @@
       <div class="header row align-items-center">
         <div class="col"></div>
         <div class="col-auto">
-          <button type="button" id="darkModeToggle" class="button icon"><i class="fas fa-adjust"></i></button>
+          <button type="button" id="b_darkMode" class="button icon"><i class="fas fa-adjust"></i></button>
+          <button type="button" id="b_configuration"class="button icon"><i
+               class="fas fa-cog"></i></button>
         </div>
       </div>
 
@@ -66,7 +69,7 @@
       <div class="player-control">
         <label>Alarm sound</label>
         <form class="d-flex">
-          <select class="form-select" id="s_sounds">
+          <select class="form-select sound-select" id="s_sounds">
           </select>
           <button class="button primary" id="b_test" type="button" style="margin-left:10px;">
             <i class="fas fa-volume-up"></i></button>
@@ -92,6 +95,39 @@
           <a class="button icon" style="font-size:2.8em;" href="https://github.com/cjpelaezrivas/Project-Blip">
             <i class="fab fa-github"></i>
           </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="configuration-modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Configuration</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Speech voice language:</label>
+                <select class="form-control form-select" id="s_speechVoiceLanguage">
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Speech voice:</label>
+                <select class="form-control form-select" id="s_speechVoice">
+                </select>
+              </div>
+              <hr>
+              <div class="form-group">
+                <button type="button" id="b_clear_configuration" class="button btn"><i class="fas fa-trash"></i> Remove all local app
+                  configuration</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close window</button>
+            <button type="button" id="b_save_configuration" class="btn btn-primary">Save changes</button>
+          </div>
         </div>
       </div>
     </div>
