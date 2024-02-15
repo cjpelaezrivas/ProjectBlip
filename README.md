@@ -4,7 +4,7 @@ Application that plays a sound every regular time interval (eg. each hour) to ma
 
 ## Progressive Web Application
 
-[https://projectblip.tk](http://cjpelaezrivas.dev/projectblip/)
+http://cjpelaezrivas.dev/projectblip/
 
 ## Attributions
 
