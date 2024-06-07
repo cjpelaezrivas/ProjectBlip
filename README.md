@@ -4,7 +4,7 @@ Application that plays a sound every regular time interval (eg. each hour) to ma
 
 ## Progressive Web Application
 
-https://projectblip.tk
+https://cjpelaezrivas.dev/ProjectBlip/
 
 ## Attributions
 
@@ -18,5 +18,4 @@ None of the used sounds are mine. You can find a link to each of the sounds used
 + https://www.freesoundslibrary.com/sleigh-bell-sound-effect/
 + https://www.freesoundslibrary.com/soft-gong-sound-effect/
 + https://www.freesoundslibrary.com/sonar-sound/
-+ https://www.freesoundslibrary.com/toy-train-sound-effect/
 + https://www.zedge.net/ringtone/488cf4e0-c687-3615-84c0-5221a7dfdf18
